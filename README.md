@@ -3,12 +3,16 @@ This repository contains implementations of basic Computer Graphics algorithms d
 
 ---
 
-📌 Contents
+## 📌 Contents
 
-1. DDA Line Algorithm
-2. Bresenham’s line drawing algorithm
-3. Mid Point Circle Algorithm
-4. Mid Point Ellipse Algorithm
+1. [DDA Line Drawing Algorithm](#-dda-line-drawing-algorithm)
+2. [Bresenham's Line Drawing Algorithm](#-bresenhams-line-drawing-algorithm)
+3. [Midpoint Circle Drawing Algorithm](#-midpoint-circle-drawing-algorithm)
+4. [Midpoint Ellipse Drawing Algorithm](#-midpoint-ellipse-drawing-algorithm)
+5. [Boundary Fill Algorithm](#-boundary-fill-algorithm)
+6. [Flood Fill Algorithm](#-flood-fill-algorithm)
+7. [2D Geometric Transformations](#-2d-geometric-transformations)
+8. [Painter's Algorithm](#-painters-algorithm)
 
 ---
 
@@ -65,20 +69,22 @@ The algorithm works by:
 
 ### 🚩 Disadvantages
 - Uses floating-point calculations
-- Slower than Bresenham’s algorithm
+- Slower than Bresenham's algorithm
 - Accumulated rounding errors
+
+[⬆️ Get Back to Contents](#-contents)
 
 ----
 
-## 📘 Bresenham’s Line Drawing Algorithm
+## 📘 Bresenham's Line Drawing Algorithm
 
 ### 🔍 Overview
 
-Bresenham’s Line Drawing Algorithm is an efficient raster line drawing algorithm used in computer graphics to draw a straight line between two given endpoints.
+Bresenham's Line Drawing Algorithm is an efficient raster line drawing algorithm used in computer graphics to draw a straight line between two given endpoints.
 
 #### 🗝️ Key idea
 
-Unlike DDA, Bresenham’s algorithm:
+Unlike DDA, Bresenham's algorithm:
 - Uses only integer arithmetic
 - Avoids floating-point calculations
 - Decides which pixel is closer to the actual line using a decision parameter
@@ -124,6 +130,8 @@ Because of this, it is faster and more accurate than the DDA algorithm.
 ### 🚩 Disadvantages
 - Original version works only for 0 < slope < 1
 - Needs modification for other slopes and directions
+
+[⬆️ Get Back to Contents](#-contents)
 
 ---
 
@@ -178,6 +186,8 @@ Instead of calculating all points of the circle the midpoint algorithm:
 ### 🚩 Disadvantages
 - Limited to raster displays
 - Requires separate handling for other shapes
+
+[⬆️ Get Back to Contents](#-contents)
 
 ---
 
@@ -243,6 +253,8 @@ The midpoint algorithm:
 - Slightly complex compared to circle algorithm
 - Uses floating-point calculations (for decision parameters)
 
+[⬆️ Get Back to Contents](#-contents)
+
 ---
 
 ## 📘 Boundary Fill Algorithm
@@ -298,6 +310,8 @@ It is commonly used to fill regions bounded by a single-colored boundary.
 - Stack overflow may occur for large regions
 - Requires a continuous boundary
 - Slower compared to scan-line fill
+
+[⬆️ Get Back to Contents](#-contents)
 
 ---
 
@@ -355,6 +369,8 @@ It is widely used in applications such as the paint bucket tool in drawing softw
 - Stack overflow for large areas
 - Slower for complex regions
 - Requires uniform region color
+
+[⬆️ Get Back to Contents](#-contents)
 
 ---
 
@@ -539,6 +555,8 @@ If sx = sy, it is **uniform scaling**. If sx ≠ sy, it is **differential scalin
 | Output color        | 🔴 Red          | 🟢 Green              | 🟡 Yellow           |
 | Parameters needed   | tx, ty          | angle, cx, cy         | sx, sy              |
 
+[⬆️ Get Back to Contents](#-contents)
+
 ---
 
 ## 📘 Painter's Algorithm
@@ -597,6 +615,8 @@ This program demonstrates the algorithm using filled rectangles, where each rect
 - Sorting overhead increases with number of objects
 - Does not handle **interpenetrating** objects correctly
 - Not suitable for real-time complex 3D rendering
+
+[⬆️ Get Back to Contents](#-contents)
 
 ---
 
