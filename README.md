@@ -349,10 +349,254 @@ It is widely used in applications such as the paint bucket tool in drawing softw
 - Useful for color replacement
 - Widely used in graphics editors
 
-Disadvantages
+---
+
+### 🚩 Disadvantages
 - Stack overflow for large areas
 - Slower for complex regions
 - Requires uniform region color
+
+---
+
+## 📘 2D Geometric Transformations
+
+### 🔍 Overview
+
+2D Geometric Transformations are fundamental operations in computer graphics used to modify the position, orientation, or size of objects in a 2D plane.
+
+This program demonstrates three core transformations applied to a **triangle**:
+- **Translation** — moving the shape
+- **Rotation** — rotating the shape around a point
+- **Scaling** — resizing the shape
+
+Each transformation draws the **original triangle in white** and the **transformed triangle in a different color** for visual comparison.
+
+---
+
+### 📘 Translation
+
+#### 🔍 Overview
+
+Translation moves every point of an object by a fixed distance in the x and y directions. It does not change the shape or orientation of the object.
+
+##### 🗝️ Key idea
+
+Each point (x, y) of the object is shifted to a new position by adding translation factors (tx, ty):
+
+```
+x' = x + tx
+y' = y + ty
+```
+
+---
+
+#### 🧠 Algorithm
+
+1. Start
+2. Read the three vertices of the triangle: (x1, y1), (x2, y2), (x3, y3)
+3. Initialize the graphics mode
+4. Draw the original triangle in white
+5. Read the translation factors: tx, ty
+6. Calculate the new coordinates:
+   - x1' = x1 + tx, y1' = y1 + ty
+   - x2' = x2 + tx, y2' = y2 + ty
+   - x3' = x3 + tx, y3' = y3 + ty
+7. Draw the translated triangle in **red**
+8. Display the output until a key is pressed
+9. Close graphics mode
+10. Stop
+
+---
+
+#### 🦾 Advantages
+
+- Simplest of all transformations
+- Uses only addition — very fast
+- Preserves the shape and size of the object
+
+---
+
+#### 🚩 Disadvantages
+
+- Does not rotate or scale the object
+- Cannot be used to center an object at the origin directly
+
+---
+
+### 📘 Rotation
+
+#### 🔍 Overview
+
+Rotation moves every point of an object around a fixed rotation point (pivot) by a specified angle. The shape and size of the object remain unchanged.
+
+##### 🗝️ Key idea
+
+Each point (x, y) is rotated about a center point (cx, cy) by an angle θ using the rotation formulas:
+
+```
+x' = cx + (x - cx) * cos(θ) - (y - cy) * sin(θ)
+y' = cy + (x - cx) * sin(θ) + (y - cy) * cos(θ)
+```
+
+The angle is converted from degrees to radians before applying the formula.
+
+---
+
+#### 🧠 Algorithm
+
+1. Start
+2. Read the three vertices of the triangle: (x1, y1), (x2, y2), (x3, y3)
+3. Initialize the graphics mode
+4. Draw the original triangle in white
+5. Read the rotation angle in degrees and the rotation point (cx, cy)
+6. Convert the angle to radians:
+   - rad = angle × (π / 180)
+7. Calculate the new coordinates for each vertex using the rotation formula
+8. Draw the rotated triangle in **green**
+9. Display the output until a key is pressed
+10. Close graphics mode
+11. Stop
+
+---
+
+#### 🦾 Advantages
+
+- Rotates object about any arbitrary point
+- Preserves shape and size of the object
+- Fundamental operation in animation and graphics
+
+---
+
+#### 🚩 Disadvantages
+
+- Uses floating-point trigonometric calculations (slower)
+- Accumulated rounding errors for repeated rotations
+- Requires conversion of degrees to radians
+
+---
+
+### 📘 Scaling
+
+#### 🔍 Overview
+
+Scaling changes the size of an object by multiplying each coordinate by a scaling factor. It can enlarge or shrink an object along the x and/or y axis independently.
+
+##### 🗝️ Key idea
+
+Each point (x, y) is scaled by factors sx and sy:
+
+```
+x' = x * sx
+y' = y * sy
+```
+
+If sx = sy, it is **uniform scaling**. If sx ≠ sy, it is **differential scaling**.
+
+---
+
+#### 🧠 Algorithm
+
+1. Start
+2. Read the three vertices of the triangle: (x1, y1), (x2, y2), (x3, y3)
+3. Initialize the graphics mode
+4. Draw the original triangle in white
+5. Read the scaling factors: sx, sy
+6. Calculate the new coordinates:
+   - x1' = x1 × sx, y1' = y1 × sy
+   - x2' = x2 × sx, y2' = y2 × sy
+   - x3' = x3 × sx, y3' = y3 × sy
+7. Draw the scaled triangle in **yellow**
+8. Display the output until a key is pressed
+9. Close graphics mode
+10. Stop
+
+---
+
+#### 🦾 Advantages
+
+- Simple multiplication-based transformation
+- Can scale independently along x and y axes
+- Useful for zoom in/out effects
+
+---
+
+#### 🚩 Disadvantages
+
+- Scaling about the origin may shift the object's position
+- Non-uniform scaling distorts the shape
+- Requires a fixed reference point for accurate results
+
+---
+
+### 📊 Comparison Table
+
+| Feature             | Translation     | Rotation              | Scaling             |
+|---------------------|-----------------|-----------------------|---------------------|
+| Operation           | Addition        | Trigonometry          | Multiplication      |
+| Shape preserved     | ✅ Yes          | ✅ Yes                | ⚠️ Only if uniform  |
+| Size preserved      | ✅ Yes          | ✅ Yes                | ❌ No               |
+| Angle preserved     | ✅ Yes          | ✅ Yes                | ⚠️ Only if uniform  |
+| Output color        | 🔴 Red          | 🟢 Green              | 🟡 Yellow           |
+| Parameters needed   | tx, ty          | angle, cx, cy         | sx, sy              |
+
+---
+
+## 📘 Painter's Algorithm
+
+### 🔍 Overview
+
+The Painter's Algorithm is a hidden surface removal technique used in computer graphics to handle the visibility of overlapping objects in a 3D scene rendered on a 2D screen.
+
+It gets its name from the way a painter works — painting the background first and then layering objects from farthest to nearest on top of each other.
+
+##### 🗝️ Key idea
+
+The algorithm:
+- Assigns a **depth value** to each object (higher depth = farther from viewer)
+- **Sorts** all objects from farthest to nearest based on their depth
+- **Draws** objects in that order so closer objects naturally paint over farther ones
+
+This program demonstrates the algorithm using filled rectangles, where each rectangle has coordinates, a depth value, and a color.
+
+---
+
+### 🧠 Algorithm
+
+1. Start
+2. Read the number of rectangles: n
+3. For each rectangle i from 0 to n−1:
+   - Read the coordinates (x1, y1, x2, y2)
+   - Read the depth value
+   - Assign a color based on index
+4. Sort the rectangles from farthest to nearest using depth:
+   - For each pair (i, j), if obj[i].depth < obj[j].depth, swap them
+   - (Higher depth value = farther from viewer = drawn first)
+5. Initialize the graphics mode
+6. For each rectangle in sorted order (back to front):
+   - Set the fill style and color
+   - Draw the filled rectangle using `bar()`
+   - Add a small delay for visualization
+7. Display the output until a key is pressed
+8. Close graphics mode
+9. Stop
+
+---
+
+### 🦾 Advantages
+
+- Simple and easy to implement
+- Works well for non-overlapping or partially overlapping objects
+- No complex geometric calculations required
+- Good for educational and introductory purposes in 3D graphics
+
+---
+
+### 🚩 Disadvantages
+
+- Fails for **cyclically overlapping** objects (e.g., three objects each partially in front of the other)
+- Sorting overhead increases with number of objects
+- Does not handle **interpenetrating** objects correctly
+- Not suitable for real-time complex 3D rendering
 
 ---
 
